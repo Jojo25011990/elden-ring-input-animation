@@ -1,0 +1,143 @@
+@forward "./reset";
+
+// *** Colors ***
+$color-dark: #222;
+$color-white: #fff;
+
+// *** Mixins ***
+@mixin flex-center() {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+html {
+	@media (max-width: 520px) {
+		font-size: 55%;
+	}
+}
+
+body {
+	width: 100%;
+	height: 100vh;
+
+	background-color: $color-dark;
+
+	font-family: Verdana, Geneva, sans-serif;
+
+	@include flex-center;
+}
+
+.wrapper {
+	width: 50rem;
+	height: 70vh;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+
+	@media (max-width: 520px) {
+		height: 60vh;
+	}
+
+	&__input {
+		width: 0%;
+		color: $color-white;
+		background-color: transparent;
+
+		border-bottom: 0.2rem solid $color-white;
+		padding-bottom: 0.5rem;
+
+		font-size: 3rem;
+
+		&:focus {
+			outline: none;
+		}
+		&::placeholder {
+			color: transparent;
+		}
+
+		&.active {
+			&::placeholder {
+				-webkit-text-stroke-color: $color-white;
+				-webkit-text-stroke-width: 0.05rem;
+			}
+		}
+
+		animation: animBorderBottom 1s linear 1s forwards;
+	}
+}
+
+.container {
+	width: 50rem;
+	height: 50rem;
+	position: relative;
+
+	&__heading {
+		position: absolute;
+		bottom: 0;
+		color: $color-white;
+		z-index: 6;
+
+		font: {
+			size: 3rem;
+			weight: 700;
+		}
+	}
+
+	&__img {
+		width: 100%;
+		height: auto;
+
+		position: relative;
+
+		clip-path: circle(0% at 50% 50%);
+
+		animation: clip-path-img 1s linear 2.2s forwards;
+	}
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 5;
+		width: 100%;
+		height: 100%;
+
+		background: linear-gradient(
+			to right,
+			rgba(0, 0, 0, 0.4),
+			rgba(0, 0, 0, 0.4)
+		);
+	}
+}
+
+// *** Animations ***
+
+// *** Border Bottom ***
+@keyframes animBorderBottom {
+	to {
+		width: 80%;
+	}
+}
+
+// *** Placeholder Input ***
+@keyframes placeholderAnim {
+	to {
+		-webkit-text-stroke-color: $color-white;
+		-webkit-text-stroke-width: 0.05rem;
+	}
+}
+
+// *** Img ***
+@keyframes clip-path-img {
+	from {
+		clip-path: circle(0% at 50% 50%);
+	}
+
+	to {
+		clip-path: circle(130% at 50% 50%);
+	}
+}
